@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import cv2
 import numpy as np
- 
+import os 
+
 app = Flask(__name__)
  
 # Carga el modelo de OpenCV
@@ -39,4 +40,5 @@ def predict():
     return jsonify(results)
  
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)  # Ajusta según sea necesario
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.', port=port)
