@@ -37,6 +37,15 @@ def predict():
             (startX, startY, endX, endY) = box.astype("int")
             label = f"{CLASSES[idx]}: {confidence * 100:.2f}%"
             results.append({"label": CLASSES[idx], "confidence": float(confidence), "box": [startX, startY, endX, endY]})
+    
+    for result in results:
+        if "confidence" in result:
+            # Convierte numpy.float32 a float nativo de Python
+            result["confidence"] = float(result["confidence"])
+        if "box" in result:
+            # Asegura que cada valor en 'box' es un entero de Python
+            result["box"] = [int(coord) for coord in result["box"]]
+    
     return jsonify(results)
  
 if __name__ == '__main__':
